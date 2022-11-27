@@ -1,7 +1,5 @@
 import {UserType} from "../components/FakeDataGrid";
 let seedrandom = require('seedrandom');
-var rng = seedrandom(0);
-console.log("rng", seedrandom(0)())
 
 const removeSymbol1 = (user: UserType, seed: number) => {
     const numbers = ['userId', 'username', 'state', 'phone']
