@@ -21,7 +21,6 @@ import {setLocaleAC, setMistakeAC, setMistakesUsersAC, setSeedAC, setUsersAC} fr
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../store";
 import {applyMistakes} from "../functions/functions";
-// let seedrandom = require('seedrandom');
 
 
 export type UserType = {
@@ -86,6 +85,7 @@ const FakeDataGrid = () => {
     // }
 
     // console.log('PARAMS', params)
+
     faker.locale = params.locale
     faker.seed(Number(params.seed))
 
@@ -117,7 +117,7 @@ const FakeDataGrid = () => {
 
         const fakeUsers = Array.from({ length: loadedUsers }, (v) => createRandomUser()) as UserType[]
 
-        let mistUsers = applyMistakes(params.mistake, fakeUsers)
+        let mistUsers = applyMistakes(params.mistake, fakeUsers, params.seed)
         dispatch(setMistakesUsersAC(mistUsers))
 
         // console.log('mistUsers', mistUsers)

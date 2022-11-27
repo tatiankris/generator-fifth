@@ -1,14 +1,19 @@
 import {UserType} from "../components/FakeDataGrid";
+let seedrandom = require('seedrandom');
+var rng = seedrandom(0);
+console.log("rng", seedrandom(0)())
 
-const removeSymbol1 = (user: UserType) => {
+const removeSymbol1 = (user: UserType, seed: number) => {
     const numbers = ['userId', 'username', 'state', 'phone']
-    const i = Math.floor(Math.random() * numbers.length);
+
+    //вместо Math.random() - seedrandom(seed);
+    const i = Math.floor(seedrandom(seed)() * numbers.length);
     const position = numbers[i]
 
     // console.log('user1', user)
     // console.log('position1', position, user[position as keyof UserType])
 
-    const l = Math.floor(Math.random() * user[position as keyof UserType].length)
+    const l = Math.floor(seedrandom(seed)() * user[position as keyof UserType].length)
 
     const str = user[position as keyof UserType]
     const newUser = {...user, [position as keyof UserType]:  str.slice(0, l) +  str.slice(l+1)}
@@ -20,20 +25,21 @@ const removeSymbol1 = (user: UserType) => {
 //removeSymbol1(removeSymbol(removeSymbol({userId: '1234', username: 'Dana', phone: '1234', state:'Minsk'})))
 
 
-const addSymbol2 = (user: UserType) => {
+const addSymbol2 = (user: UserType, seed: number) => {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for (var symb = 0; symb < 1; symb++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+        text += possible.charAt(Math.floor(seedrandom(seed)() * possible.length));
 
+//вместо Math.random() - seedrandom(seed);
     const numbers = ['userId', 'username', 'phone', 'state']
-    const i = Math.floor(Math.random() * numbers.length);
+    const i = Math.floor(seedrandom(seed)() * numbers.length);
     const position = (numbers[i])
 
     // console.log('user2', user)
     // console.log('position2', position, user[position as keyof UserType])
 
-    const l = Math.floor(Math.random() * user[position as keyof UserType].length)
+    const l = Math.floor(seedrandom(seed)() * user[position as keyof UserType].length)
 
     const str = user[position as keyof UserType]
     const newUser = {...user, [position as keyof UserType]:  str.slice(0, -l) + text + str.slice(-l)}
@@ -45,10 +51,12 @@ const addSymbol2 = (user: UserType) => {
 
 
 
-const transpositionSymbols3 = (user: UserType) => {
+const transpositionSymbols3 = (user: UserType, seed: number) => {
 
     const numbers = ['userId', 'username', 'phone', 'state']
-    const i = Math.floor(Math.random() * numbers.length);
+
+    //вместо Math.random() - seedrandom(seed);
+    const i = Math.floor(seedrandom(seed)() * numbers.length);
     const position = numbers[i]
 
     // console.log('user3', user)
@@ -59,7 +67,7 @@ const transpositionSymbols3 = (user: UserType) => {
 
 
 
-    const l = Math.floor(Math.random() * arr.length)
+    const l = Math.floor(seedrandom(seed)() * arr.length)
 
     const arr2 = [...arr]
     if (l+1 < arr.length) {
@@ -84,8 +92,9 @@ function weightedRandom (mistakesNumber: number) {
 
     const repeat = 12
 
+    //вместо Math.random() использую seedrandom(x)
     function foo() {
-        let random = Math.floor(Math.random() * 100) + 1; // 1..100
+        let random = Math.floor(seedrandom(mistakesNumber)() * 100) + 1; // 1..100
         switch (true) {
             case random < 100/3: return 1 // 33.3%
             case random < 100/1.5: return 2 // 33.3%
@@ -108,9 +117,9 @@ function weightedRandom (mistakesNumber: number) {
 }
 //weightedRandom(43);
 
-let cou = 0
-const howManyCallFoo = (foo: (user: UserType) => UserType, count: number,  element: UserType) => {
 
+const howManyCallFoo = (foo: (user: UserType, seed: number) => UserType, count: number,  element: UserType, seed: number) => {
+    let cou = 0
     if (count === 0) {
         return element
     }
@@ -122,17 +131,17 @@ const howManyCallFoo = (foo: (user: UserType) => UserType, count: number,  eleme
 
     if (typeof foo === 'function') {
         for (let i=0; i<count; i++ ) {
-            user = foo(user)
+            user = foo(user, seed+cou)
             cou++
             // console.log('change', user)
         }
     }
-
+    cou = 0
     return user
 
 }
 
-export const applyMistakes = (mistakesNumber: number, users: Array<UserType>) => {
+export const applyMistakes = (mistakesNumber: number, users: Array<UserType>, seed: number) => {
 
     if (mistakesNumber === 0) {
         return users
@@ -144,7 +153,8 @@ export const applyMistakes = (mistakesNumber: number, users: Array<UserType>) =>
 
     let e = 0
     const probableError = mistakesNumber - Math.floor(mistakesNumber)
-    const probability = Math.floor(Math.random() * 100)
+    //Math.random()
+    const probability = Math.floor(seedrandom(seed)() * 100)
 
     if (probability < probableError * 100) {
         e = 1
@@ -156,16 +166,16 @@ export const applyMistakes = (mistakesNumber: number, users: Array<UserType>) =>
     const mistakesUsers = users.map(u => {
 
         // console.log('THIS user', u)
-        let user1 = howManyCallFoo(removeSymbol1, callArr[1], u)
+        let user1 = howManyCallFoo(removeSymbol1, callArr[1], u, seed)
         // console.log('change1', user1)
-        let user2 = howManyCallFoo(addSymbol2, callArr[2], user1)
+        let user2 = howManyCallFoo(addSymbol2, callArr[2], user1, seed)
         // console.log('change2', user2)
-        let user3 = howManyCallFoo(transpositionSymbols3, callArr[3], user2)
+        let user3 = howManyCallFoo(transpositionSymbols3, callArr[3], user2, seed)
         // console.log('change3', user3)
         return user3
     })
 
     // console.log('HOW many CALL', cou)
-    cou = 0
+
     return mistakesUsers;
 }
