@@ -145,7 +145,7 @@ const FakeDataGrid = () => {
             </FormControl>
             <div id={'table'} onWheel={handleWheelEvent}
                  style={{margin: '20px 20px 20px 20px',
-                     // border: '2px solid black', borderRadius: '6px'
+                     border: '2px solid black', borderRadius: '6px'
             }}>
                 <FakeUsersTable users={mistakesUsers}/>
             </div>

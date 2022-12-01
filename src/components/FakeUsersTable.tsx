@@ -8,15 +8,15 @@ export type TablePropsType = {
 const FakeUsersTable = (props: TablePropsType) => {
 
     return (
-        <TableContainer component={Paper} sx={{minWidth: 1500, maxWidth: 1700}}>
+        <TableContainer component={Paper} sx={{minWidth: 1500, maxWidth: 1500}}>
             <Table aria-label="simple table">
                 <TableHead style={{background: '#EFEFEF'}}>
                     <TableRow>
-                        <TableCell sx={{width: 50}} align="left">№</TableCell>
-                        <TableCell sx={{width: 300}}  align="right">ID</TableCell>
-                        <TableCell sx={{width: 300}}  align="right">Full Name</TableCell>
-                        <TableCell sx={{width: 300}}  align="right">Address</TableCell>
-                        <TableCell sx={{width: 300}}  align="right">Phone</TableCell>
+                        <TableCell sx={{minWidth: 40}} align="left">№</TableCell>
+                        <TableCell sx={{minWidth: 200}}  align="right">ID</TableCell>
+                        <TableCell sx={{minWidth: 200}}  align="right">Full Name</TableCell>
+                        <TableCell sx={{minWidth: 200}}  align="right">Address</TableCell>
+                        <TableCell sx={{minWidth: 200}}  align="right">Phone</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -27,26 +27,26 @@ const FakeUsersTable = (props: TablePropsType) => {
                             sx={{ '&:last-child td, &:last-child th': { border: 0},  }}
                             style={{maxHeight:200}}
                         >
-                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 140}} component="th" scope="row">
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 40}} component="th" scope="row">
                                 <div>{index+1}</div>
                             </TableCell>
-                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 340}}
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 200}}
                                        align="right">
                                 {/*<div style={{whiteSpace: "pre-wrap"}}>{row.userId}</div>*/}
                                 {row.userId}
                             </TableCell>
-                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 340}}
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 200}}
                                        align="right">
                                 {/*<div style={{whiteSpace: "pre-wrap"}}>{row.username}</div>*/}
                                 {row.username}
                             </TableCell>
-                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 340}}
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 200}}
                                        align="right">
                                 {/*<div style={{whiteSpace: "pre-wrap"}}>{row.state}</div>*/}
                                 {row.state}
                             </TableCell>
-                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 340}}
-                                        align="right">
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 200}}
+                                       align="right">
                                 {/*<div style={{whiteSpace: "pre-wrap"}}>{row.phone}</div>*/}
                                 {row.phone}
                             </TableCell>

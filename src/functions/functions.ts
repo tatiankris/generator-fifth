@@ -68,10 +68,11 @@ const transpositionSymbols3 = (user: UserType, seed: number) => {
 function weightedRandom(mistakesNumber: number) {
 
 
-    const repeat = 12
+    let i = mistakesNumber
 
     function foo() {
-        let random = Math.floor(seedrandom(mistakesNumber)() * 100) + 1; // 1..100
+        let random = Math.floor(seedrandom(i)() * 100) + 1; // 1..100
+        i++
         switch (true) {
             case random < 100 / 3:
                 return 1 // 33.3%
