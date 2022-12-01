@@ -8,7 +8,7 @@ export type TablePropsType = {
 const FakeUsersTable = (props: TablePropsType) => {
 
     return (
-        <TableContainer component={Paper} sx={{minWidth: 1500, maxWidth: 1500}}>
+        <TableContainer component={Paper} sx={{minWidth: 1400, maxWidth: 1400}}>
             <Table aria-label="simple table">
                 <TableHead style={{background: '#EFEFEF'}}>
                     <TableRow>
