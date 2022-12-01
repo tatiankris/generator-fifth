@@ -17,11 +17,17 @@ import MistakesSlider from "./MistakesSlider";
 import { faker } from '@faker-js/faker';
 import FakeUsersTable from "./FakeUsersTable";
 import {FormikErrors, useFormik} from "formik";
-import {setLocaleAC, setMistakeAC, setMistakesUsersAC, setSeedAC, setUsersAC} from "../state/usersReducer";
+import {
+    cutMistakesUsersAC,
+    setLocaleAC,
+    setMistakeAC,
+    setMistakesUsersAC,
+    setSeedAC,
+    setUsersAC
+} from "../state/usersReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../store";
 import {applyMistakes} from "../functions/functions";
-
 
 export type UserType = {
     userId: string
@@ -43,7 +49,6 @@ function createRandomUser(): UserType {
     };
 }
 
-console.log('window', document.documentElement.getBoundingClientRect())
 
 // function populate() {
 //     while(true) {
@@ -129,6 +134,13 @@ const FakeDataGrid = () => {
     let NEXT_USERS = [] as UserType[]
     const [nextUsers, setNextUsers] = useState<UserType[]>([])
 
+    const handleWheelEvent = (e: React.WheelEvent<HTMLDivElement>) => {
+        if (e.deltaY > 0) {
+            setLoadedUsers(loadedUsers+10)
+        } else {
+           return
+        }
+    };
 
 
 
@@ -139,14 +151,12 @@ const FakeDataGrid = () => {
 
     return (
         <Grid container spacing={1} marginTop={'28px'} marginBottom={'46px'}>
-
-
             <FormControl style={{display: 'block', height: '220px', padding: '20px 20px 20px 20px'}}>
                 {/*<form onSubmit={handleSubmit}>*/}
                     <div id={'country'} style={{width: '300px'}}>
                         <FormLabel  id="demo-row-radio-buttons-group-label">COUNTRY
                         <RadioGroup
-                            onChange={(e) => {dispatch(setLocaleAC(e.currentTarget.value))}}
+                            onChange={(e) => {dispatch(setLocaleAC(e.currentTarget.value));setLoadedUsers(20); dispatch(cutMistakesUsersAC()); }}
                             defaultValue="de"
                             row
                             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -165,10 +175,11 @@ const FakeDataGrid = () => {
 
                             <div style={{width: 300}}>
                                 <FormLabel>MISTAKES
-                                <Slider // @ts-ignore
-                                    onChange={(e, val) => {setMistakeInput(val*100); dispatch(setMistakeAC(val*100))}
+                                <Slider
+                                    onChange={(e, val) => {setMistakeInput(val); // @ts-ignore
+                                        dispatch(setMistakeAC(val))}
                                     }
-                                    value={mistakeInput/100}
+                                    value={mistakeInput}
 
 
                                     aria-label="Temperature"
@@ -230,13 +241,9 @@ const FakeDataGrid = () => {
 
                 {/*</form>*/}
             </FormControl>
-            <div id={'table'} onWheel={onScroll} style={{padding: '20px 20px 20px 20px'}}>
+            <div id={'table'} onWheel={handleWheelEvent} style={{margin: '20px 20px 20px 20px', border: '2px solid black', borderRadius: '6px'}}>
                 <FakeUsersTable users={mistakesUsers} nextUsers={nextUsers}/>
             </div>
-
-
-
-
         </Grid>
     )
 }

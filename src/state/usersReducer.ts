@@ -38,6 +38,10 @@ export const usersReducer = (state: StateType = initialState, action: UsersActio
         case 'users/SET-MISTAKES-USERS': {
             return {...state, mistakesUsers:action.users}
         }
+        case 'users/CUT-MISTAKES-USERS': {
+            return {...state, mistakesUsers: state.mistakesUsers.slice(0, 20)}
+        }
+
 
         default:
             return state
@@ -76,5 +80,10 @@ export const setMistakesUsersAC = (users: any) => {
         users
     } as const
 }
+export const cutMistakesUsersAC = () => {
+    return {
+        type: 'users/CUT-MISTAKES-USERS'
+    } as const
+}
 
-export type UsersActionsType = ReturnType<typeof setLocaleAC> | ReturnType<typeof setMistakeAC> | ReturnType<typeof setSeedAC> | ReturnType<typeof setUsersAC>| ReturnType<typeof setMistakesUsersAC>
+export type UsersActionsType = ReturnType<typeof setLocaleAC> | ReturnType<typeof setMistakeAC> | ReturnType<typeof setSeedAC> | ReturnType<typeof setUsersAC>| ReturnType<typeof setMistakesUsersAC>| ReturnType<typeof cutMistakesUsersAC>
