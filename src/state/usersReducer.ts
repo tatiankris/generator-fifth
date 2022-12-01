@@ -6,7 +6,6 @@ export type StateType = {
         mistake: number
         seed: number
     }
-    users: Array<UserType>
     mistakesUsers: Array<UserType>
 }
 
@@ -16,7 +15,6 @@ let initialState = {
         mistake: 0,
         seed: 0
     },
-    users: [],
     mistakesUsers: []
 } as StateType
 
@@ -31,9 +29,6 @@ export const usersReducer = (state: StateType = initialState, action: UsersActio
         }
         case 'users/SET-SEED': {
             return {...state, params: {...state.params, seed: action.seed}}
-        }
-        case 'users/SET-USERS': {
-            return {...state, users:action.users}
         }
         case 'users/SET-MISTAKES-USERS': {
             return {...state, mistakesUsers:action.users}
@@ -68,12 +63,7 @@ export const setSeedAC = (seed: number) => {
         seed
     } as const
 }
-export const setUsersAC = (users: UserType[]) => {
-    return {
-        type: 'users/SET-USERS',
-        users
-    } as const
-}
+
 export const setMistakesUsersAC = (users: any) => {
     return {
         type: 'users/SET-MISTAKES-USERS',
@@ -86,4 +76,4 @@ export const cutMistakesUsersAC = () => {
     } as const
 }
 
-export type UsersActionsType = ReturnType<typeof setLocaleAC> | ReturnType<typeof setMistakeAC> | ReturnType<typeof setSeedAC> | ReturnType<typeof setUsersAC>| ReturnType<typeof setMistakesUsersAC>| ReturnType<typeof cutMistakesUsersAC>
+export type UsersActionsType = ReturnType<typeof setLocaleAC> | ReturnType<typeof setMistakeAC> | ReturnType<typeof setSeedAC> | ReturnType<typeof setMistakesUsersAC>| ReturnType<typeof cutMistakesUsersAC>
