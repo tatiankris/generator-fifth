@@ -109,7 +109,7 @@ const FakeDataGrid = () => {
                                            style={{width: '250px'}}
                                            id={"quantity"}
                                            name={"quantity"}
-                                           inputProps={{step: 1, max: 1000, min: 0}}
+                                           inputProps={{step: 0.25, max: 1000, min: 0}}
                                            placeholder={'from 0 to 1000'}
                                            value={mistakeInput}
                                            onChange={(e) => { // @ts-ignore
@@ -144,7 +144,9 @@ const FakeDataGrid = () => {
                 </Stack>
             </FormControl>
             <div id={'table'} onWheel={handleWheelEvent}
-                 style={{margin: '20px 20px 20px 20px', border: '2px solid black', borderRadius: '6px'}}>
+                 style={{margin: '20px 20px 20px 20px',
+                     // border: '2px solid black', borderRadius: '6px'
+            }}>
                 <FakeUsersTable users={mistakesUsers}/>
             </div>
         </Grid>

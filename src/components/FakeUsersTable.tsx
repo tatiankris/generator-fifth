@@ -8,7 +8,7 @@ export type TablePropsType = {
 const FakeUsersTable = (props: TablePropsType) => {
 
     return (
-        <TableContainer component={Paper} sx={{minWidth: 800}}>
+        <TableContainer component={Paper} sx={{minWidth: 1500, maxWidth: 1700}}>
             <Table aria-label="simple table">
                 <TableHead style={{background: '#EFEFEF'}}>
                     <TableRow>
@@ -24,23 +24,31 @@ const FakeUsersTable = (props: TablePropsType) => {
                         <TableRow
 
                             key={index}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0}}}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0},  }}
                             style={{maxHeight:200}}
                         >
-                            <TableCell component="th" scope="row">
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 140}} component="th" scope="row">
                                 <div>{index+1}</div>
                             </TableCell>
-                            <TableCell  align="right">
-                                <div style={{whiteSpace: "pre-wrap"}}>{row.userId}</div>
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 340}}
+                                       align="right">
+                                {/*<div style={{whiteSpace: "pre-wrap"}}>{row.userId}</div>*/}
+                                {row.userId}
                             </TableCell>
-                            <TableCell align="right">
-                                <div style={{whiteSpace: "pre-wrap"}}>{row.username}</div>
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 340}}
+                                       align="right">
+                                {/*<div style={{whiteSpace: "pre-wrap"}}>{row.username}</div>*/}
+                                {row.username}
                             </TableCell>
-                            <TableCell align="right">
-                                <div style={{whiteSpace: "pre-wrap"}}>{row.state}</div>
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 340}}
+                                       align="right">
+                                {/*<div style={{whiteSpace: "pre-wrap"}}>{row.state}</div>*/}
+                                {row.state}
                             </TableCell>
-                            <TableCell  align="right">
-                                <div style={{whiteSpace: "pre-wrap"}}>{row.phone}</div>
+                            <TableCell sx={{whiteSpace: 'normal', wordWrap: 'break-word', maxWidth: 340}}
+                                        align="right">
+                                {/*<div style={{whiteSpace: "pre-wrap"}}>{row.phone}</div>*/}
+                                {row.phone}
                             </TableCell>
                         </TableRow>
                     ))}
